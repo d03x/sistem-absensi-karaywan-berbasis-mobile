@@ -3,24 +3,22 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "db:migrate": "knex migrate:latest",
-    "migration:make": "knex migrate:make",
-    "migration:rollback": "knex migrate:rollback",
+    "db:migrate": "bun prisma migrate dev",
     "dev": "bun --watch index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@prisma/client": "6.1.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "knex": "^3.1.0",
-    "mysql2": "^3.11.5"
+    "prisma": "^6.1.0"
   }
 }

@@ -1,5 +1,6 @@
-import knex from "@/database/knex";
 import AuthService from "@/services/auth_service";
+import prisma from "@/utils/db";
+import { PrismaClient } from "@prisma/client";
 import type { Request, Response } from "express";
 
 /**
@@ -19,10 +20,17 @@ class AuthController {
    * @returns void
    */
   public async login(req: Request, res: Response) {
-    const users = await knex("users").select("*");
-    res.json({
-      matchMedia: users,
-    });
+    try {
+      res.json({
+        matchMedia: {
+          data: await prisma.user.findMany(),
+        },
+      });
+    } catch (error : any) {
+      res.status(500).json({
+        message: error.message,
+      });
+    }
   }
 
   /**
