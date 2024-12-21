@@ -13,7 +13,6 @@
     "expo": "^52.0.16",
     "expo-font": "~13.0.2",
     "expo-linear-gradient": "~14.0.1",
-    "expo-secure-store": "~14.0.0",
     "fs": "^0.0.1-security",
     "helmet": "^8.0.0",
     "i18next": "^24.2.0",
