@@ -41,15 +41,14 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
         <LinearGradient colors={["#0066ff", "transparent"]}>
-          <HeaderTop />
-          {/* Card Activity */}
+          <HeaderTop
+            name="Dadan Hidayat"
+            company="Digicylab Agency"
+            photo={require("@assets/images/image.jpg")}
+          />
           <CardActivity />
-          {/* END Card Activity */}
         </LinearGradient>
-
-        {/* Menu */}
         <HomeMenu />
-        {/* END menu */}
       </Animated.ScrollView>
     </View>
   );

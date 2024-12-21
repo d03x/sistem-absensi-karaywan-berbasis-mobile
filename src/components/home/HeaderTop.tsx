@@ -1,29 +1,32 @@
 import i18 from "@/helpers/i18n";
 import { fonts } from "@/styles/global.styles";
-import HomeStyles from "@/styles/home.styles";
+import homeStyles from "@/styles/home.styles";
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
-import Animated from "react-native-reanimated";
+import { IconButton } from "@react-native-material/core";
+import { ImageSourcePropType, Text, View } from "react-native";
+import Animated, { SharedValue } from "react-native-reanimated";
 
-const HeaderTop = () => {
+type HeaderTopProps = {
+  scrollY?: SharedValue<number>;
+  photo: ImageSourcePropType;
+  name: string;
+  company: string;
+};
+
+const HeaderTop = ({ name, company, photo, scrollY }: HeaderTopProps) => {
   return (
-    <Animated.View style={[HomeStyles.header]}>
-      <View style={HomeStyles.headerWrapper}>
-        <Animated.Image
-          style={[HomeStyles.headerAvatar]}
-          source={require("@asset/images/image.jpg")}
-        />
+    <Animated.View style={[homeStyles.header]}>
+      <View style={homeStyles.headerWrapper}>
+        <Animated.Image style={[homeStyles.headerAvatar]} source={photo} />
         <View>
-          <Text style={[HomeStyles.employeeName, fonts.inter]}>
-            {i18.t("welcome")},Muhammad Nasrul
+          <Text style={[homeStyles.employeeName, fonts.inter]}>
+            {i18.t("welcome")},{name}
           </Text>
-          <Text style={[HomeStyles.positionTitle, fonts.inter]}>
-            PT. Arka Mega Nusantara
-          </Text>
+          <Text style={[homeStyles.positionTitle, fonts.inter]}>{company}</Text>
         </View>
       </View>
       <View>
-        <Ionicons name="log-out-outline" size={24} color={"white"} />
+        <IconButton  icon={<Ionicons name="log-out" />}/>
       </View>
     </Animated.View>
   );
