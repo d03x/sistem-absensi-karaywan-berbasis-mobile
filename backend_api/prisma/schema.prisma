@@ -12,18 +12,49 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+
+model Companny {
+  id           Int      @id @default(autoincrement())
+  name         String
+  address      String
+  company_logo String
+  website      String
+  phone        String
+  email        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  User         User[]
+
+  @@map("compannies")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+enum Role {
+  ADMIN
+  USER
+}
+
+model Position {
+  id               Int      @id @default(autoincrement())
+  name             String
+  with_parent_name String?
+  parent_id        Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String
+  email      String
+  password   String
+  login_time DateTime?
+  active     Boolean   @default(true)
+  picture    String?
+  role       Role      @default(USER)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Companny   Companny? @relation(fields: [compannyId], references: [id])
+  compannyId Int?      @map("companny_id")
+
+  @@map("users")
 }

@@ -3,9 +3,7 @@ import prisma from "@/utils/db";
 import apiResponse from "@/utils/response";
 import { response, type Request, type Response } from "express";
 
-/**
- * AuthController class handles authentication-related operations.
- */
+// Define the AuthController class.
 class AuthController {
   public auth_service: AuthService;
   constructor(authService: AuthService) {
@@ -21,7 +19,9 @@ class AuthController {
    * @returns void
    */
   public async login(req: Request, res: Response) {
+    // Call the login method from the AuthService class
     const data = await this.auth_service.login();
+    // Send the response
     try {
       apiResponse(res, {
         status: 200,
