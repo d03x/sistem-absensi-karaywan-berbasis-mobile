@@ -1,15 +1,16 @@
 import AuthService from "@/services/auth_service";
 import prisma from "@/utils/db";
-import { PrismaClient } from "@prisma/client";
-import type { Request, Response } from "express";
+import apiResponse from "@/utils/response";
+import { response, type Request, type Response } from "express";
 
 /**
  * AuthController class handles authentication-related operations.
  */
 class AuthController {
-  AuthService: AuthService;
-  constructor() {
-    this.AuthService = new AuthService();
+  public auth_service: AuthService;
+  constructor(authService: AuthService) {
+    this.auth_service = authService;
+    this.login = this.login.bind(this);
   }
 
   /**
@@ -20,16 +21,19 @@ class AuthController {
    * @returns void
    */
   public async login(req: Request, res: Response) {
+    const data = await this.auth_service.login();
     try {
-      res.json({
-        matchMedia: {
-          data: await prisma.user.findMany(),
-        },
+      apiResponse(res, {
+        status: 200,
+        data,
+        message: "User login successful",
       });
-    } catch (error : any) {
+    } catch (error: any) {
       res.status(500).json({
         message: error.message,
       });
+    } finally {
+      this.auth_service._destroy();
     }
   }
 
@@ -47,4 +51,4 @@ class AuthController {
   }
 }
 
-export default new AuthController();
+export default new AuthController(new AuthService(prisma));
