@@ -1,7 +1,53 @@
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 
 export default function HomeMenu() {
+  const menu = [
+    [
+      {
+        name: "Attendance",
+        icon: "qr-code-outline",
+        color: "green",
+      },
+      {
+        name: "History",
+        icon: "refresh-outline",
+        color: "red",
+      },
+      {
+        name: "Izin & Cuti",
+        icon: "calendar-outline",
+        color: "blue",
+      },
+      {
+        name: "People",
+        icon: "people-outline",
+        color: "purple",
+      },
+    ],
+    [
+      {
+        name: "Tugas",
+        icon: "library-outline",
+        color: "gray",
+      },
+      {
+        name: "Pengajuan",
+        icon: "briefcase",
+        color: "orange",
+      },
+      {
+        name: "Lembur",
+        icon: "stopwatch-outline",
+        color: "sky",
+      },
+      {
+        name: "Lain Nya",
+        icon: "grid-outline",
+        color: "black",
+      },
+    ],
+  ];
   return (
     <View
       style={{
@@ -13,14 +59,14 @@ export default function HomeMenu() {
         paddingVertical: 10,
       }}
     >
-      {[1, 2].map(() => {
+      {menu.map((e) => {
         return (
           <View
             style={{
               flexDirection: "row",
             }}
           >
-            {[1, 2, 3, 4].map(() => {
+            {e.map((menus) => {
               return (
                 <View
                   style={{
@@ -39,7 +85,7 @@ export default function HomeMenu() {
                       justifyContent: "center",
                     }}
                   >
-                    <FontAwesome size={23} name="calendar-minus-o" />
+                    <Ionicons color={menus.color} size={23} name={menus.icon} />
                   </View>
                   <Text
                     style={{
@@ -48,7 +94,7 @@ export default function HomeMenu() {
                       fontSize: 11,
                     }}
                   >
-                    Attendance
+                    {menus.name}
                   </Text>
                 </View>
               );

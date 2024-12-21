@@ -13,11 +13,11 @@ const HomeStyles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 10,
-    marginTop:9,
+    marginTop:10,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    height: 100,
+    height: 56,
   },
   headerWrapper: {
     gap: 10,
@@ -25,7 +25,9 @@ const HomeStyles = StyleSheet.create({
     flexDirection: "row",
   },
   headerAvatar: {
-    borderRadius: 5,
+    borderWidth:2,
+    borderColor:"white",
+    borderRadius: 50,
     width: 40,
     height: 40,
   },
