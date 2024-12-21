@@ -1,4 +1,15 @@
 {
   "name": "absensi_app",
-  "slug": "absensi_app"
+  "slug": "absensi_app",
+  "android": {
+    "package": "com.dadandev.absensi_app"
+  },
+  "plugins": [
+    [
+      "expo-font",
+      {
+        "fonts": ["node_modules/@expo-google-fonts/inter/Inter_700Bold.ttf"]
+      }
+    ]
+  ]
 }

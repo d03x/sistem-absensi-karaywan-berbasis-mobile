@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native';
-
+/**
+ * This file serves as the entry point for the Absensi application.
+ * It imports the main `AbsensiApp` component from the "@/App" module
+ * and exports it as the default export.
+ */
+import AbsensiApp from "@/App";
+import React from "react";
+import { useFonts } from "expo-font";
+import { StatusBar, Text } from "react-native";
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
-}
+  // const [fontLoaded] = useFonts(require("@/assets/fonts/Inter-Regular.ttf"));
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  // if (!fontLoaded) {
+  //   return <Text>Font Not Loaded</Text>;
+  // }
+
+  return <AbsensiApp />;
+}
