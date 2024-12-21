@@ -25,11 +25,9 @@ const LoginScreen = () => {
   const submit = async () => {
     try {
       const response = await login(email, password);
-      console.log(response);
-
     } catch (e: any) {
       const error = e as AxiosError;
-      Alert.alert("Oke", error.code);
+      Alert.alert("Oke", error.message);
     }
   };
   useState(() => {

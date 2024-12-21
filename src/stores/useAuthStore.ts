@@ -1,7 +1,8 @@
 import axios from "axios";
 import { Alert } from "react-native";
 import { create } from "zustand";
-import SecureStorage from "@pagopa/io-react-native-secure-storage";
+import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
+import apiRequest from "@/services/network/request";
 type State = {
   userData: any;
   loading: boolean;
@@ -31,18 +32,15 @@ const useAuthStore = create<State & Actions>((set) => ({
       set({
         loading: true,
       });
-      const response = await axios.post(
-        "http://192.168.43.50:3000/api/auth/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await apiRequest.post("/api/auth/login", {
+        email,
+        password,
+      });
       if (response.status === 200) {
         const tokenJwt = response.data;
         Alert.alert(tokenJwt?.message?.toString());
         await SecureStorage.put("data", JSON.stringify(tokenJwt));
-        console.log(tokenJwt);
+        console.log(await SecureStorage.get("data"));
       }
       return true;
     } catch (error) {
