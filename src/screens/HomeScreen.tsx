@@ -9,7 +9,6 @@ import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from "react-native-reanimated";
-
 export default function HomeScreen() {
   const navigation = useNavigation();
   const scrollY = useSharedValue(0);
@@ -44,7 +43,7 @@ export default function HomeScreen() {
           <HeaderTop
             name="Dadan Hidayat"
             company="Digicylab Agency"
-            photo={require("@assets/images/image.jpg")}
+            photo={require("@asset/images/image.jpg")}
           />
           <CardActivity />
         </LinearGradient>

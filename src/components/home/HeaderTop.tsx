@@ -3,6 +3,7 @@ import { fonts } from "@/styles/global.styles";
 import homeStyles from "@/styles/home.styles";
 import { Ionicons } from "@expo/vector-icons";
 import { IconButton } from "@react-native-material/core";
+import { useNavigation } from "@react-navigation/native";
 import { ImageSourcePropType, Text, View } from "react-native";
 import Animated, { SharedValue } from "react-native-reanimated";
 
@@ -14,6 +15,7 @@ type HeaderTopProps = {
 };
 
 const HeaderTop = ({ name, company, photo, scrollY }: HeaderTopProps) => {
+  const navigation = useNavigation();
   return (
     <Animated.View style={[homeStyles.header]}>
       <View style={homeStyles.headerWrapper}>
@@ -26,7 +28,13 @@ const HeaderTop = ({ name, company, photo, scrollY }: HeaderTopProps) => {
         </View>
       </View>
       <View>
-        <IconButton  icon={<Ionicons name="log-out" />}/>
+        <IconButton
+          onPress={() => {
+            //@ts-ignore
+            navigation.navigate("login");
+          }}
+          icon={<Ionicons size={27} name="log-out-outline" color={"white"} />}
+        />
       </View>
     </Animated.View>
   );
