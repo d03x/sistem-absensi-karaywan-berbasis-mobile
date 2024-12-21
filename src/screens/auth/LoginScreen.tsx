@@ -16,26 +16,20 @@ import { Button } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
+import useAuthStore from "@/stores/useAuthStore";
 const LoginScreen = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
+  const { login, loading } = useAuthStore();
   const submit = async () => {
     try {
-      setLoading(true);
-      const response = await axios.post(
-        "http://192.168.43.50:3000/api/auth/login",
-        { email, password }
-      );
-      if (response.status === 200) {
-        Alert.alert(response.status.toString(), response.data?.message);
-      }
+      const response = await login(email, password);
+      console.log(response);
+
     } catch (e: any) {
       const error = e as AxiosError;
       Alert.alert("Oke", error.code);
-    } finally {
-      setLoading(false);
     }
   };
   useState(() => {
