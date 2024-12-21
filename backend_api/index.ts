@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import ApiRoute from "@route/api";
 import morgan from "morgan";
 import helmet from "helmet";
+
+const port = 3000;
+
 /**
  * The main Express application instance.
  * This instance is used to configure and run the backend API server.
@@ -23,6 +26,6 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 // Start the server
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("Server is running on port 3000");
 });
