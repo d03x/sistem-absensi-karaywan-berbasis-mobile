@@ -89,6 +89,7 @@ export default function HomeMenu() {
                   </View>
                   <Text
                     style={{
+                      color : menus.color,
                       marginTop: 3,
                       fontWeight: "bold",
                       fontSize: 11,

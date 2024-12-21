@@ -31,7 +31,7 @@ const HeaderTop = ({ name, company, photo, scrollY }: HeaderTopProps) => {
         <IconButton
           onPress={() => {
             //@ts-ignore
-            navigation.navigate("login");
+            navigation.replace("login")
           }}
           icon={<Ionicons size={27} name="log-out-outline" color={"white"} />}
         />

@@ -49,7 +49,7 @@ const HomeStyles = StyleSheet.create({
   cardActivityContainer: {
     marginTop: 5,
     overflow: "hidden",
-    borderRadius: 5,
+    borderRadius: 10,
   },
 
   cardActivityWrapper: {

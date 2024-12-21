@@ -26,6 +26,6 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 // Start the server
-app.listen(port, () => {
+app.listen(port,"192.168.43.50", () => {
   console.log("Server is running on port 3000");
 });
