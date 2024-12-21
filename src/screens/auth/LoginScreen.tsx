@@ -8,11 +8,12 @@ import {
   View,
 } from "react-native";
 import { loginStyles } from "@screen/auth/styles.login";
-import { Link } from "@react-navigation/native";
+import { Link, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
 const LoginScreen = () => {
+  const navigate =  useNavigation();
   return (
     <SafeAreaView>
       <LinearGradient
@@ -82,6 +83,9 @@ const LoginScreen = () => {
             }}
           />
           <TouchableOpacity
+          onPress={()=>{
+           navigate.navigate("home-tab");
+          }}
             style={{
               gap: 3,
               borderRadius: 10,
