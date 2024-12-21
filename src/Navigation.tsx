@@ -137,7 +137,7 @@ const RootStackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="home-tab"
+        initialRouteName="login"
         id={undefined}
       >
         <RootStack.Screen name="home-tab" component={HomeTabs} />

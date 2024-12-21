@@ -15,20 +15,29 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 const LoginScreen = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigation();
-  const [email, setEmail] = useState("DADAN");
-  const [password, setPassword] = useState("Ginanjar");
-  const submit = React.useCallback(async () => {
+  const [email, onChangeEmailText] = useState("DADAN");
+  const [password, onChangePasswordText] = useState("Ginanjar");
+  const submit = async () => {
     try {
+      setLoading(true);
       const response = await axios.post(
-        "http://192.168.43.50:3000/api/auth/login"
+        "http://192.168.43.50:3000/api/auth/login",
+        { email, password }
       );
+      if (response.status === 200) {
+        Alert.alert(response.status.toString(), response.data?.message);
+      }
     } catch (e: any) {
-      Alert.alert("Oke", e.message);
+      const error = e as AxiosError;
+      Alert.alert("Oke", error.code);
+    } finally {
+      setLoading(false);
     }
-  }, []);
+  };
   useState(() => {
     const subscribe = navigate.addListener("focus", () => {});
     return subscribe;
@@ -41,6 +50,7 @@ const LoginScreen = () => {
       colors={["blue", "transparent"]}
     >
       <View style={loginStyles.loginWrapper}>
+        {loading && <ActivityIndicator />}
         <View>
           <Text
             style={{
@@ -60,7 +70,7 @@ const LoginScreen = () => {
           </Text>
         </View>
         <TextInput
-          onChangeText={setEmail}
+          onChangeText={onChangeEmailText}
           placeholder="Nama"
           style={{
             padding: 10,
@@ -74,7 +84,7 @@ const LoginScreen = () => {
         <TextInput
           secureTextEntry
           placeholder="Kata Sandi"
-          onChangeText={setPassword}
+          onChangeText={onChangePasswordText}
           style={{
             padding: 10,
             borderRadius: 10,

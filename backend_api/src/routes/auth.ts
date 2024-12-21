@@ -25,7 +25,7 @@ const AuthRoute = Router();
  * @param {Response} res - Express response object
  * @param {Function} next - Express next middleware function
  */
-AuthRoute.get("/login", auth_controller.login);
+AuthRoute.post("/login", auth_controller.login);
 
 /**
  * Route for user registration.
