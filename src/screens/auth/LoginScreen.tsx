@@ -2,25 +2,21 @@ import {
   ActivityIndicator,
   Alert,
   Dimensions,
-  SafeAreaView,
   Text,
   TextInput,
-  TextInputChangeEventData,
   TouchableOpacity,
   View,
 } from "react-native";
 import { loginStyles } from "@screen/auth/styles.login";
-import { Link, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Button } from "@react-native-material/core";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import useAuthStore from "@/stores/useAuthStore";
 import { fonts } from "@/styles/global.styles";
 import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
-const LoginScreen = async () => {
-  const jwtToken = await SecureStorage.get("jwtToken");
+const LoginScreen = () => {
   const navigate = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
@@ -36,9 +32,12 @@ const LoginScreen = async () => {
     }
   };
   useState(() => {
-    if (jwtToken) {
-      Alert.alert("ADA JWT");
-    }
+    SecureStorage.get("jwtToken").then((token) => {
+      if (token) {
+        //@ts-ignore
+        navigate.replace("home-tab");
+      }
+    });
     const subscribe = navigate.addListener("focus", () => {});
     return subscribe;
   });
