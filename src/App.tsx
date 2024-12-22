@@ -7,9 +7,9 @@
  */
 import { AbsensiProvider } from "@/contexts/absensi-context";
 import React from "react";
-import { Text, StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 import { RootStackNavigator } from "@/Navigation";
-import { PaperProvider, useTheme } from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import {
   useFonts,
   Inter_500Medium,

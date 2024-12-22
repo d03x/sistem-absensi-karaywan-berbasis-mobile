@@ -19,17 +19,25 @@ class AuthController {
    * @returns void
    */
   public async login(req: Request, res: Response) {
-    // Call the login method from the AuthService class
-    const data = await this.auth_service.login();
-    // Send the response
     try {
+      // Call the login method from the AuthService class
+      const { token, userdata }: any = await this.auth_service.login(
+        req.body.email,
+        req.body.password
+      );
+      // Send the response
       apiResponse(res, {
         status: 200,
-        data,
+        data: {
+          token: token,
+          user: userdata,
+        },
         message: "User login successful",
       });
     } catch (error: any) {
-      res.status(500).json({
+      apiResponse(res, {
+        status: 500,
+        error: error,
         message: error.message,
       });
     } finally {
