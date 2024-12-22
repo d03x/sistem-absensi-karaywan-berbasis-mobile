@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
   Text,
   TextInput,
@@ -10,12 +11,12 @@ import { loginStyles } from "@screen/auth/styles.login";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fonts } from "@/styles/global.styles";
 import { useAuthProvider } from "@/contexts/auth-provider";
 const LoginScreen = () => {
   const { login, loading, isAuthenticated } = useAuthProvider();
-  const navigate = useNavigation();
+  const navigation = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
 
@@ -23,17 +24,23 @@ const LoginScreen = () => {
     const isLogin = await login(email, password);
     if (isLogin) {
       //@ts-ignore
-      navigate.replace("home-tab");
+      navigation.replace("home-tab");
     }
   };
-  useState(() => {
+  function checkIslogin() {
     if (isAuthenticated) {
       //@ts-ignore
-      navigate.replace("home-tab");
+      navigation.replace("home-tab");
     }
-    const subscribe = navigate.addListener("focus", () => {});
+    Alert.alert(isAuthenticated ? "Aktif" : "TIDAK");
+  }
+  useEffect(() => {
+    checkIslogin();
+    const subscribe = navigation.addListener("focus", () => {
+      checkIslogin();
+    });
     return subscribe;
-  });
+  }, []);
   return (
     <LinearGradient
       style={{
@@ -41,6 +48,7 @@ const LoginScreen = () => {
       }}
       colors={["blue", "transparent"]}
     >
+      <Text>{isAuthenticated ? "Aktif " : "DADAn"}</Text>
       <View style={loginStyles.loginWrapper}>
         <View>
           <Text

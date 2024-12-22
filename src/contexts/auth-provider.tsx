@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import * as Storage from "@pagopa/io-react-native-secure-storage";
 import { Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 type AuthContextProps = {
   userInfo: any;
   token: any;
@@ -50,10 +51,9 @@ const AuthProvider = ({ children }) => {
     return false;
   }
   async function checkIsAuthenticated() {
-    Storage.get("token").then((token: string) => {
-      setUserToken(token);
-      setIsAuthenticated(token ? true : false);
-    });
+    const token = await Storage.get("token");
+    setUserToken(token);
+    setIsAuthenticated(token ? true : false);
     try {
       const response = await apiRequest.get("api/user/info", {
         headers: {
@@ -65,7 +65,10 @@ const AuthProvider = ({ children }) => {
     }
   }
   useEffect(() => {
-    checkIsAuthenticated();
+    async function check(){
+        checkIsAuthenticated();
+    }
+    check();
   }, []);
   return (
     <AuthProviderContext.Provider
