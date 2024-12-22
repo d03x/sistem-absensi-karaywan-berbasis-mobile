@@ -8,6 +8,7 @@ export const loginStyles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     borderTopEndRadius: 20,
+    marginTop:100,
     borderTopLeftRadius: 20,
   },
 });
