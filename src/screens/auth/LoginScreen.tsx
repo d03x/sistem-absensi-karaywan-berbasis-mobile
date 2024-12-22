@@ -20,7 +20,7 @@ import useAuthStore from "@/stores/useAuthStore";
 import { fonts } from "@/styles/global.styles";
 import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
 const LoginScreen = async () => {
-  const jwtToken = await SecureStorage.get("jwtToken")
+  const jwtToken = await SecureStorage.get("jwtToken");
   const navigate = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
@@ -36,7 +36,7 @@ const LoginScreen = async () => {
     }
   };
   useState(() => {
-    if ( jwtToken ) {
+    if (jwtToken) {
       Alert.alert("ADA JWT");
     }
     const subscribe = navigate.addListener("focus", () => {});
