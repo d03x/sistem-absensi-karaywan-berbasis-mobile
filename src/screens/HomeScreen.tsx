@@ -1,6 +1,7 @@
 import CardActivity from "@/components/home/CardActivity";
 import HeaderTop from "@/components/home/HeaderTop";
 import HomeMenu from "@/components/home/Menu";
+import useAuthStore from "@/stores/useAuthStore";
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
@@ -19,6 +20,7 @@ export default function HomeScreen() {
   navigation.setOptions({
     headerShown: false,
   });
+  const { userData } = useAuthStore();
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       console.warn("Anda tidak terhubung ke internet");
@@ -41,9 +43,11 @@ export default function HomeScreen() {
       >
         <LinearGradient colors={["#0066ff", "transparent"]}>
           <HeaderTop
-            name="Dadan Hidayat"
+            name={userData?.name}
             company="Digicylab Agency"
-            photo={require("@asset/images/image.jpg")}
+            photo={{
+              uri: userData?.picture,
+            }}
           />
           <CardActivity />
         </LinearGradient>

@@ -10,7 +10,7 @@ type State = {
   token: string | undefined;
 };
 type Actions = {
-  setUserData: () => void;
+  setUserData: (data: any) => void;
   login: (email: string, password: string) => void;
   setLoading: (loading: boolean) => void;
 };
@@ -18,11 +18,9 @@ type Actions = {
 const useAuthStore = create<State & Actions>((set) => ({
   isAuthenticated: false,
   userData: {},
-  setUserData() {
+  setUserData(data: any) {
     return set({
-      userData: {
-        id: 10,
-      },
+      userData: data,
     });
   },
   token: undefined,
@@ -37,10 +35,15 @@ const useAuthStore = create<State & Actions>((set) => ({
         password,
       });
       if (response.status === 200) {
-        const tokenJwt = response.data;
-        Alert.alert(tokenJwt?.message?.toString());
-        await SecureStorage.put("data", JSON.stringify(tokenJwt));
-        console.log(await SecureStorage.get("data"));
+        const responseData = response.data?.data;
+        if (responseData?.token) {
+          set({
+            userData: responseData?.user,
+          });
+          await SecureStorage.put("jwtToken", responseData?.token);
+        } else {
+          Alert.alert("Ada kesalahan", "Ada kesalahan saat login");
+        }
       }
       return true;
     } catch (error) {

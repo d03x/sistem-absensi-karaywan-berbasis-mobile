@@ -18,7 +18,9 @@ import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
 import useAuthStore from "@/stores/useAuthStore";
 import { fonts } from "@/styles/global.styles";
-const LoginScreen = () => {
+import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
+const LoginScreen = async () => {
+  const jwtToken = await SecureStorage.get("jwtToken")
   const navigate = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
@@ -26,12 +28,17 @@ const LoginScreen = () => {
   const submit = async () => {
     try {
       const response = await login(email, password);
+      //@ts-ignore
+      navigate.replace("home-tab");
     } catch (e: any) {
       const error = e as AxiosError;
       Alert.alert("Ada Kesalahan", error.message);
     }
   };
   useState(() => {
+    if ( jwtToken ) {
+      Alert.alert("ADA JWT");
+    }
     const subscribe = navigate.addListener("focus", () => {});
     return subscribe;
   });
