@@ -19,6 +19,7 @@ import HomeScreen from "@/screens/HomeScreen";
 import JadwalScreen from "@/screens/JadwalScreen";
 import ProfileScreen from "@screen/ProfileScreen";
 import NotificationScreen from "@screen/NotificationScreen";
+import * as StorageSecure from "@pagopa/io-react-native-secure-storage";
 import {
   Platform,
   Text,
@@ -137,7 +138,7 @@ const RootStackNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="login"
+        initialRouteName={"login"}
         id={undefined}
       >
         <RootStack.Screen name="home-tab" component={HomeTabs} />

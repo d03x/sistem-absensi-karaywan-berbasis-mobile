@@ -6,7 +6,7 @@ import { IconButton } from "@react-native-material/core";
 import { useNavigation } from "@react-navigation/native";
 import { ImageSourcePropType, Text, View } from "react-native";
 import Animated, { SharedValue } from "react-native-reanimated";
-
+import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
 type HeaderTopProps = {
   scrollY?: SharedValue<number>;
   photo: ImageSourcePropType;
@@ -29,7 +29,8 @@ const HeaderTop = ({ name, company, photo, scrollY }: HeaderTopProps) => {
       </View>
       <View>
         <IconButton
-          onPress={() => {
+          onPress={async () => {
+            await SecureStorage.remove("jwtToken");
             //@ts-ignore
             navigation.replace("login");
           }}

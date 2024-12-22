@@ -9,7 +9,7 @@ import { AbsensiProvider } from "@/contexts/absensi-context";
 import React from "react";
 import { StatusBar } from "react-native";
 import { RootStackNavigator } from "@/Navigation";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, useTheme } from "react-native-paper";
 import {
   useFonts,
   Inter_500Medium,
@@ -22,6 +22,7 @@ import {
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
 import { ActivityIndicator } from "@react-native-material/core";
+import { AuthProvider } from "./contexts/auth-provider";
 export default function AbsensiApp() {
   const [fontLoaded] = useFonts({
     Inter_500Medium,
@@ -45,8 +46,10 @@ export default function AbsensiApp() {
   return (
     <PaperProvider>
       <AbsensiProvider>
-        <StatusBar backgroundColor={"blue"} barStyle="light-content" />
-        <RootStackNavigator />
+        <AuthProvider>
+          <StatusBar backgroundColor={"blue"} barStyle="light-content" />
+          <RootStackNavigator />
+        </AuthProvider>
       </AbsensiProvider>
     </PaperProvider>
   );

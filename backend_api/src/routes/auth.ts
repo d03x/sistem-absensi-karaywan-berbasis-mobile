@@ -4,6 +4,7 @@
  */
 
 import auth_controller from "@/controller/auth_controller";
+import { authorization_jwt } from "@/middlewares/authorization_jwt";
 import { Router } from "express";
 
 /**
@@ -26,7 +27,6 @@ const AuthRoute = Router();
  * @param {Function} next - Express next middleware function
  */
 AuthRoute.post("/login", auth_controller.login);
-
 /**
  * Route for user registration.
  *

@@ -1,6 +1,5 @@
 import {
   ActivityIndicator,
-  Alert,
   Dimensions,
   Text,
   TextInput,
@@ -12,32 +11,26 @@ import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
-import { AxiosError } from "axios";
-import useAuthStore from "@/stores/useAuthStore";
 import { fonts } from "@/styles/global.styles";
-import * as SecureStorage from "@pagopa/io-react-native-secure-storage";
+import { useAuthProvider } from "@/contexts/auth-provider";
 const LoginScreen = () => {
+  const { login, loading, isAuthenticated } = useAuthProvider();
   const navigate = useNavigation();
   const [email, onChangeEmailText] = useState("DADAN");
   const [password, onChangePasswordText] = useState("Ginanjar");
-  const { login, loading } = useAuthStore();
+
   const submit = async () => {
-    try {
-      const response = await login(email, password);
+    const isLogin = await login(email, password);
+    if (isLogin) {
       //@ts-ignore
       navigate.replace("home-tab");
-    } catch (e: any) {
-      const error = e as AxiosError;
-      Alert.alert("Ada Kesalahan", error.message);
     }
   };
   useState(() => {
-    SecureStorage.get("jwtToken").then((token) => {
-      if (token) {
-        //@ts-ignore
-        navigate.replace("home-tab");
-      }
-    });
+    if (isAuthenticated) {
+      //@ts-ignore
+      navigate.replace("home-tab");
+    }
     const subscribe = navigate.addListener("focus", () => {});
     return subscribe;
   });

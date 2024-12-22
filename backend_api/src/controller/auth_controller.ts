@@ -44,7 +44,11 @@ class AuthController {
       this.auth_service._destroy();
     }
   }
-
+  public getUserInfo(reqeust : Request,response : Response){
+    response.json({
+      status : true,
+    })
+  }
   /**
    * Handles user registration.
    *
